@@ -1,0 +1,10 @@
+.movie {
+  margin: 50px 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 1280px) {
+  .movie {
+    margin: 80px 70px 0;
+  }
+}

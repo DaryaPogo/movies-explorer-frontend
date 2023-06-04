@@ -1,0 +1,88 @@
+.aboutMe {
+  margin: 70px 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe {
+    margin: 90px 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutMe {
+    margin: 110px 70px 125px;
+  }
+}
+
+.aboutMe__image {
+  margin-top: 60px;
+  width: 292px;
+  height: 352px;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__image {
+    margin-top: 0;
+    width: 255px;
+    height: 307px;
+    margin-left: 49px;
+  }
+}
+
+.aboutMe__link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 40px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__link {
+    margin-top: 87px;
+  }
+}
+
+.aboutMe__subtitle {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  margin: 40px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__subtitle {
+    margin-top: 0;
+    font-size: 40px;
+    line-height: 40px;
+  }
+}
+
+.aboutMe__text {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  margin: 20px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__text {
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 18px;
+    max-width: 600px;
+  }
+
+  .aboutMe__text:first-of-type {
+    margin-top: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe__wrapper {
+    display: flex;
+    flex-flow: row-reverse;
+    margin-top: 66px;
+    justify-content: space-between;
+  }
+}

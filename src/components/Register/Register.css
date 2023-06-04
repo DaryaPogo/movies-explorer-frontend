@@ -1,0 +1,144 @@
+.register {
+  margin: 0 auto;
+  padding: 56px 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 396px;
+}
+
+@media screen and (min-width: 768px) {
+  .register {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .register {
+    padding: 70px 0;
+  }
+}
+.register__button {
+  cursor: pointer;
+  background: #2be080;
+  border-radius: 3px;
+  width: 260px;
+  height: 45px;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  margin: 240px 0 14px;
+  transition: 2s ease-in;
+}
+
+.register__button:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .register__button {
+    width: 396px;
+    margin: 152px 0 16px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+.register__footer {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #a0a0a0;
+  margin: 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .register__footer {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+.register__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.register__input {
+  width: 260px;
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid #e8e8e8;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 5px 0 10px;
+  margin-bottom: 24px;
+}
+
+.register__input:last-of-type {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .register__input {
+    width: 396px;
+  }
+}
+.register__label {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.register__label_red {
+  color: rgba(238, 52, 101, 1);
+}
+
+.register__login-link {
+  color: #2be080;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-decoration: none;
+  margin-left: 7px;
+}
+.register__logo {
+  width: 38px;
+  height: 38px;
+}
+
+@media screen and (min-width: 768px) {
+  .register__logo {
+    align-self: self-start;
+  }
+}
+.register__wellcome {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  margin: 50px 0 80px;
+}
+
+@media screen and (min-width: 768px) {
+  .register__wellcome {
+    margin: 40px 0;
+    align-self: flex-start;
+  }
+}
+
+.register__error {
+  color: rgba(238, 52, 101, 1);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  padding-top: 6px;
+}
