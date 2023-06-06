@@ -1,16 +1,12 @@
 import photo from "../../images/student.png";
-import "./AboutMe.css"
+import "./AboutMe.css";
 
 const AboutMe = () => {
   return (
     <section className="aboutMe">
       <h2 className="aboutProject__title">Студент</h2>
       <div className="aboutMe__wrapper">
-        <img
-          src={photo}
-          alt="Фото студента"
-          className="aboutMe__image"
-        />
+        <img src={photo} alt="Фото студента" className="aboutMe__image" />
         <div>
           <h3 className="aboutMe__subtitle">Виталий</h3>
           <p className="aboutMe__text">Фронтенд-разработчик, 30 лет</p>
@@ -21,7 +17,14 @@ const AboutMe = () => {
             Контур». После того, как прошёл курс по веб&#8209;разработке, начал
             заниматься фриланс&#8209;заказами и ушёл с постоянной работы.
           </p>
-          <p className="aboutMe__link">Github</p>
+          <a
+            href="https://github.com/DaryaPogo"
+            target="_blank"
+            className="aboutMe__link"
+            rel="noreferrer"
+          >
+            Github
+          </a>
         </div>
       </div>
     </section>

@@ -16,6 +16,8 @@ const Login = () => {
           id="email"
           name="email"
           type="email"
+          placeholder="pochta@yandex.ru"
+          required
         />
         <label className="register__label">Пароль</label>
         <input
@@ -23,6 +25,7 @@ const Login = () => {
           id="password"
           name="password"
           type="password"
+          required
         />
         <button type="submit" className="register__button">
           Войти

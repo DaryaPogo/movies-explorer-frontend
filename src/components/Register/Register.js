@@ -9,18 +9,29 @@ const Register = () => {
       </Link>
       <h2 className="register__wellcome">Добро пожаловать!</h2>
       <form className="register__form">
-        <label className="register__label">
-          Имя
-        </label>
-        <input className="register__input" name="name" type="name" />
-        <label className="register__label">
-          E-mail
-        </label>
-        <input className="register__input" name="email" type="email" />
-        <label className="register__label">
-          Пароль
-        </label>
-        <input className="register__input register__label_red" name="password" type="password" />
+        <label className="register__label">Имя</label>
+        <input
+          className="register__input"
+          name="name"
+          type="name"
+          placeholder="Имя"
+          required
+        />
+        <label className="register__label">E-mail</label>
+        <input
+          className="register__input"
+          name="email"
+          type="email"
+          placeholder="pochta@yandex.ru"
+          required
+        />
+        <label className="register__label">Пароль</label>
+        <input
+          className="register__input register__label_red"
+          name="password"
+          type="password"
+          required
+        />
         <span className="register__error">Что-то пошло не так...</span>
         <button type="submit" className="register__button">
           Зарегистрироваться

@@ -30,16 +30,17 @@
 }
 
 .aboutMe__link {
+  transition: 0.2s linear;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  margin: 40px 0 0;
+  color: #000;
+  text-decoration: none;
 }
 
-@media screen and (min-width: 768px) {
-  .aboutMe__link {
-    margin-top: 87px;
-  }
+.aboutMe__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .aboutMe__subtitle {
@@ -62,12 +63,12 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 16px;
-  margin: 20px 0 0;
+  margin: 20px 0 40px;
 }
 
 @media screen and (min-width: 768px) {
   .aboutMe__text {
-    margin-top: 20px;
+    margin: 20px 0 87px;
     font-size: 12px;
     line-height: 18px;
     max-width: 600px;

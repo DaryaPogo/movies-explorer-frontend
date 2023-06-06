@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation  } from "react-router-dom";
 import { useState } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -10,12 +10,14 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
-import Navigation from "../Navigation/Navigation";
+import HeaderMain from "../HeaderMain/HeaderMain";
 
 function App() {
   const [isEditNavigation, setEditNavigation] = useState(false);
 
   const currentPath = window.location.pathname;
+
+  const location = useLocation();
 
   function handleEditNavigation() {
     setEditNavigation(!isEditNavigation);
@@ -29,15 +31,16 @@ function App() {
     <>
       {(currentPath === "/saved-movies" ||
         currentPath === "/movies" ||
-        currentPath === "/profile" ||
-        currentPath === "/") && (
+        currentPath === "/profile") && (
         <Header
-          isLoggedIn={true}
           onEditNavigation={() => {
             handleEditNavigation(true);
           }}
+          isOpen={isEditNavigation} 
+          onClose={closePopup}
         />
       )}
+      {currentPath === "/" && <HeaderMain />}
       <Routes>
         <Route exact path="/" element={<Main />} />
         <Route exact path="/saved-movies" element={<SavedMovies />} />
@@ -47,12 +50,9 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Navigation isOpen={isEditNavigation} onClose={closePopup} />
       {(currentPath === "/saved-movies" ||
         currentPath === "/movies" ||
-        currentPath === "/") && (
-        <Footer/>
-      )}
+        currentPath === "/") && <Footer />}
     </>
   );
 }
