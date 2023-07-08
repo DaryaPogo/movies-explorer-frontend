@@ -1,0 +1,97 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 70px 0 40px;
+}
+
+.profile__label {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: #e8e8e8 solid 1px;
+  width: 260px;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__label {
+    width: 410px;
+  }
+}
+
+.profile__wellcome {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0 0 80px;
+}
+
+@media screen and (min-width: 768px) {
+  .profile {
+    margin: 236px 0 269px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile {
+    margin: 74px 0 70px;
+  }
+}
+
+.profile__label:last-child {
+  border: none;
+  margin-top: 17px;
+  padding: 0;
+}
+
+.profile__input {
+  border: none;
+  text-align: end;
+}
+
+.profile__signout {
+  color: rgba(238, 52, 101, 1);
+  text-decoration: none;
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  transition: 0.3s ease-in-out;
+}
+
+.profile__signout:hover {
+  opacity: 0.6;
+}
+
+.profile__button {
+  border: none;
+  background-color: #fff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 379px;
+  transition: 0.3s ease-in-out;
+}
+
+.profile__button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__button {
+    margin-top: 210px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__button {
+    margin-top: 220px;
+  }
+}
