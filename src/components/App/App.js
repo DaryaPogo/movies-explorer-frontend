@@ -43,7 +43,10 @@ function App() {
         .then((currentUser) => {
           setCurrentUser(currentUser);
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>{
+          localStorage.removeItem("userId")
+          console.log(err)
+        });
     }
   }, [loggedIn]);
 

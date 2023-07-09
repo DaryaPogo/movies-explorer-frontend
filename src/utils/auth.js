@@ -1,5 +1,5 @@
-// const BaseURL = "http://localhost:3000";
-const BaseURL = 'https://api.diplom.dashapogo.nomoredomains.monster';
+const BaseURL = "http://localhost:3000";
+// const BaseURL = 'https://api.diplom.dashapogo.nomoredomains.monster';
 function getResponse(res) {
   if (res.ok) {
     return res.json();
@@ -22,10 +22,12 @@ export const login = (data) => {
     credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
-  }).then(getResponse).then((data) => {
-    localStorage.setItem('userId', data._id)
-    return data;
-  });
+  })
+    .then(getResponse)
+    .then((data) => {
+      localStorage.setItem("userId", data._id);
+      return data;
+    });
 };
 
 export const checkToken = () => {
@@ -46,4 +48,4 @@ export const logout = () => {
       "Content-Type": "application/json",
     },
   }).then(getResponse);
-}
+};
