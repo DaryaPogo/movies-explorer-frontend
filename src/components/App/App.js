@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
