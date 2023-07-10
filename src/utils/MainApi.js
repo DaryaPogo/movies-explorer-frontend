@@ -1,9 +1,9 @@
-import { baseURL, adress } from "../utils/utils";
+import { baseURL, movieAdress } from "../utils/utils";
 
 export class mainApi {
   constructor() {
     this.baseURL = baseURL;
-    this.adress = adress;
+    this.movieAdress = movieAdress;
   }
 
   _getResponse(res) {
@@ -50,11 +50,11 @@ export class mainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `${this.adress}${movie.image.url}`,
+        image: `${this.movieAdress}${movie.image.url}`,
         trailerLink: movie.trailerLink,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-        thumbnail: `${this.adress}${movie.image.url}`,
+        thumbnail: `${this.movieAdress}${movie.image.url}`,
         movieId: movie.id,
       }),
       headers: { "Content-Type": "application/json" },
