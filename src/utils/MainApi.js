@@ -1,9 +1,9 @@
-import { configURL } from "../utils/utils";
+import { baseURL, adress } from "../utils/utils";
 
 export class mainApi {
-  constructor(URL) {
-    this.baseURL = URL.baseURL;
-    this.adress = URL.adress;
+  constructor() {
+    this.baseURL = baseURL;
+    this.adress = adress;
   }
 
   _getResponse(res) {
@@ -71,5 +71,5 @@ export class mainApi {
   }
 }
 
-const moviesApi = new mainApi(configURL);
+const moviesApi = new mainApi();
 export default moviesApi;
