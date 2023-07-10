@@ -1,7 +1,7 @@
 import { baseURL, movieAdress } from "../utils/utils";
 
 export class mainApi {
-  constructor(config) {
+  constructor() {
     this.baseURL = baseURL;
   }
 
@@ -15,6 +15,7 @@ export class mainApi {
   getInfo() {
     return fetch(`${this.baseURL}/users/me`, {
       method: "GET",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
     }).then(this._getResponse);
   }
@@ -35,6 +36,7 @@ export class mainApi {
     return fetch(`${this.baseURL}/movies`, {
       method: "GET",
       credentials: "include",
+      headers: { "Content-Type": "application/json" },
     }).then(this._getResponse);
   }
 
