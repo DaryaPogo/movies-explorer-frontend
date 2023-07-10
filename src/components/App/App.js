@@ -47,15 +47,12 @@ function App() {
           localStorage.removeItem("userId")
           console.log(err)
         });
+        mainApi
+        .getSavedMovies()
+        .then((res) => setSavedMovies(res))
+        .catch((err) => console.log(err));
     }
   }, [loggedIn]);
-
-  useEffect(() => {
-    mainApi
-      .getSavedMovies()
-      .then((res) => setSavedMovies(res))
-      .catch((err) => console.log(err));
-  }, [currentPath]);
 
   useEffect(() => {
     function closeByEscape(evt) {
