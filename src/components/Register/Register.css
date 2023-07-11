@@ -20,7 +20,7 @@
 }
 .register__button {
   cursor: pointer;
-  background: #2be080;
+  background: rgb(43, 224, 128);
   border-radius: 3px;
   width: 260px;
   height: 45px;
@@ -32,6 +32,11 @@
   text-align: center;
   margin: 240px 0 14px;
   transition: 0.4s ease-in;
+}
+
+.register__button:disabled {
+  background: rgba(43, 224, 128, 0.2);
+  cursor: auto;
 }
 
 .register__button:hover {
@@ -77,11 +82,10 @@
   font-size: 14px;
   line-height: 17px;
   padding: 5px 0 10px;
-  margin-bottom: 24px;
 }
 
-.register__input:last-of-type {
-  margin-bottom: 0;
+.register__input:first-child{
+  margin-top: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -99,6 +103,7 @@
   font-size: 10px;
   line-height: 12px;
   color: #a0a0a0;
+  margin-top: 24px;
 }
 
 .register__label_red {
@@ -155,5 +160,5 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  padding-top: 6px;
+  padding: 6px 0;
 }

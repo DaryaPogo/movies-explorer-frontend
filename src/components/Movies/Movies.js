@@ -1,12 +1,21 @@
 import "./Movies.css";
-import SearchForm from '../SearchForm/SearchForm';
+import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const Movies = () => {
+const Movies = (props) => {
+  const { onFilterMovies, movieCards, onMovieLike, isSaved, onDelete, isLoading, error, isBtnPushed } = props;
   return (
     <>
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm onFilterMovies={onFilterMovies}/>
+      <MoviesCardList
+        movieCards={movieCards}
+        onMovieLike={onMovieLike}
+        isSaved={isSaved}
+        onDelete={onDelete}
+        isLoading={isLoading}
+        error={error}
+        isBtnPushed={isBtnPushed}
+      />
     </>
   );
 };

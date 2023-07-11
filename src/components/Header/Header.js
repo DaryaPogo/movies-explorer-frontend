@@ -1,27 +1,12 @@
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
+import "../HeaderMain/HeaderMain.css";
 import React from "react";
 import "./Header.css";
 import { useEffect, useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
 const Header = ({ onEditNavigation, isOpen, onClose }) => {
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
 
   return (
     <header className="header">
