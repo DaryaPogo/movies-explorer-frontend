@@ -91,7 +91,7 @@ function App() {
     moviesApi.getMovies().then((res) => {
       setMovies(res);
     });
-    setFiltredMovies(JSON.parse(localStorage.getItem("movies")));
+    setFiltredMovies(JSON.parse(localStorage.getItem("movies")) || []);
   }, []);
 
   useEffect(() => setSavedFitredMovies(savedMovies), [savedMovies]);
@@ -210,7 +210,6 @@ function App() {
           movies.filter((item) => filterMovie(item, search, isShort))
         );
         localStorage.setItem('movies', JSON.stringify(movies.filter((item) => filterMovie(item, search, isShort))))
-        console.log(JSON.parse(localStorage.getItem('movies')))
       })
       .catch((err) => {
         console.log(err);
