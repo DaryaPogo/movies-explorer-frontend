@@ -4,7 +4,14 @@ import React, { useState, useEffect, useMemo } from "react";
 import Preloader from "../Preloader/Preloader";
 
 export const MoviesCardList = (props) => {
-  const { movieCards, onMovieLike, isSaved, onDelete, isLoading, error, isBtnPushed } = props;
+  const {
+    movieCards,
+    onMovieLike,
+    onDelete,
+    isLoading,
+    error,
+    savedMovies,
+  } = props;
 
   const [page, setPage] = useState(1);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -31,12 +38,28 @@ export const MoviesCardList = (props) => {
     setPage((page) => page + 1);
   };
 
+  const handleSave = (moviesToRender) => {
+    if (currentPath === "/saved-movies") {
+      return true;
+    } else {
+      if (savedMovies.find((m) => m.movieId === moviesToRender.id)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
   return (
     <section className="movie">
-      {error && <span className="movie__non">Во время запроса произошла ошибка.
-      Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>}
-      {isLoading && <Preloader/> }
-      {moviesToRender.length === 0 && (isBtnPushed) && (
+      {error && (
+        <span className="movie__non">
+          Во время запроса произошла ошибка. Возможно, проблема с соединением
+          или сервер недоступен. Подождите немного и попробуйте ещё раз
+        </span>
+      )}
+      {isLoading && <Preloader />}
+      {moviesToRender.length === 0  && (
         <span className="movie__non">Ничего не найдено</span>
       )}
       <ul className="movie__table">
@@ -47,7 +70,7 @@ export const MoviesCardList = (props) => {
               onDelete={onDelete}
               movieCard={moviesToRender}
               onMovieLike={onMovieLike}
-              isSaved={isSaved}
+              isSaved={handleSave(moviesToRender)}
             />
           ))}
       </ul>

@@ -19,35 +19,54 @@ import { register, checkToken, login, logout } from "../../utils/auth";
 
 function App() {
   const [isEditNavigation, setEditNavigation] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isPopupSuccess, setPopupSuccess] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(() => {
+    if (localStorage.getItem("userId")) {
+      return true;
+    } else {
+      return false;
+    }
+  });
   const [currentUser, setCurrentUser] = useState([]);
   const [movies, setMovies] = useState([]);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [filtredMovies, setFitredMovies] = useState([]);
+  const [filtredMovies, setFiltredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedFiltredMovies, setSavedFitredMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [isBtnPushed, setIsBtnPushed] = useState(false);
-  const [isBtnPushedSaved, setIsBtnPushedSaved] = useState(false);
 
   const navigate = useNavigate();
   const currentPath = window.location.pathname;
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("userId");
-    if (loggedIn) {
+    const jwt = localStorage.getItem("userId");
+    if (jwt) {
+      checkToken(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setEmail(res.email);
+          setName(res.name);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    const id = localStorage.getItem("userId");
+    if (id) {
       mainApi
         .getInfo()
         .then((currentUser) => {
           setCurrentUser(currentUser);
+          setLoggedIn(true);
         })
-        .catch((err) =>{
-          localStorage.removeItem("userId")
-          console.log(err)
+        .catch((err) => {
+          localStorage.removeItem("userId");
+          console.log(err);
         });
-        mainApi
+      mainApi
         .getSavedMovies()
         .then((res) => setSavedMovies(res))
         .catch((err) => console.log(err));
@@ -69,21 +88,13 @@ function App() {
   }, [isEditNavigation]);
 
   useEffect(() => {
-    const jwt = localStorage.getItem("userId");
-    if (jwt) {
-      checkToken(jwt)
-        .then((res) => {
-          setLoggedIn(true);
-          setEmail(res.email);
-          setName(res.name);
-        })
-        .catch((err) => console.log(err));
-    }
+    moviesApi.getMovies().then((res) => {
+      setMovies(res);
+    });
+    setFiltredMovies(JSON.parse(localStorage.getItem("movies")));
   }, []);
 
-  useEffect(() => {
-    moviesApi.getMovies().then((res) => setMovies(res));
-  }, []);
+  useEffect(() => setSavedFitredMovies(savedMovies), [savedMovies]);
 
   function handleEditNavigation() {
     setEditNavigation(!isEditNavigation);
@@ -91,6 +102,7 @@ function App() {
 
   function closePopup() {
     setEditNavigation(false);
+    setPopupSuccess(false);
   }
 
   function handleRegister(data) {
@@ -121,8 +133,11 @@ function App() {
 
   function handleSignout(jwt) {
     return logout()
-      .then((res) => {
-        localStorage.removeItem("userId", jwt);
+      .then(() => {
+        localStorage.removeItem("userId");
+        localStorage.removeItem("search");
+        localStorage.removeItem("isShort");
+        localStorage.removeItem("movies");
         navigate("/");
         setLoggedIn(false);
         setEmail("");
@@ -137,6 +152,7 @@ function App() {
       .editProfile({ name, email })
       .then(() => {
         setCurrentUser({ ...currentUser, name, email });
+        setPopupSuccess(true);
       })
       .catch((err) => {
         console.log(err);
@@ -164,21 +180,19 @@ function App() {
       currentPath === "/saved-movies" ? movie._id : deleteMovie._id;
     mainApi
       .deleteMovie(deletedId)
-      .then((res) => {
-        setSavedFitredMovies((savedFitredMovies) =>
+      .then(() => {
+        setSavedFitredMovies(() =>
           savedFiltredMovies.filter((c) => c._id !== movie._id)
         );
+        handleGetMovies();
       })
       .catch((err) => console.log(err));
+      
   }
 
   function filterMovie(movie, search, isShort) {
     if (isShort) {
-      return (
-        (movie.nameRU.toLowerCase().includes(search) ||
-          movie.nameEN.toLowerCase().includes(search)) &&
-        movie.duration < 40
-      );
+      return movie.duration < 40;
     } else {
       return (
         movie.nameRU.toLowerCase().includes(search) ||
@@ -187,28 +201,30 @@ function App() {
     }
   }
 
-  function handeleFilterMovies(search, isShort) {
-    if (currentPath === "/saved-movies") {
-      setIsBtnPushedSaved(true);
-      setSavedFitredMovies(
-        savedMovies.filter((item) => filterMovie(item, search, isShort))
-      );
-    } else {
-      setIsLoading(true);
-      setIsBtnPushed(true);
-      moviesApi
-        .getMovies()
-        .then((movies) => {
-          setFitredMovies(
-            movies.filter((item) => filterMovie(item, search, isShort))
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-          setError(true);
-        })
-        .finally(() => setIsLoading(false));
-    }
+  function handleFilterMovies(search, isShort) {
+    setIsLoading(true);
+    moviesApi
+      .getMovies()
+      .then((movies) => {
+        setFiltredMovies(
+          movies.filter((item) => filterMovie(item, search, isShort))
+        );
+        localStorage.setItem('movies', JSON.stringify(movies.filter((item) => filterMovie(item, search, isShort))))
+        console.log(JSON.parse(localStorage.getItem('movies')))
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handeleSavedFilterMovies(search, isShort) {
+    setSavedFitredMovies(
+      savedMovies.filter((item) => filterMovie(item, search, isShort))
+    );
   }
 
   return (
@@ -238,11 +254,18 @@ function App() {
       )}
       <Routes>
         <Route exact path="/" element={<Main />} />
-        <Route
-          path="/signup"
-          element={<Register handleRegister={handleRegister} />}
-        />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route element={<ProtectedRoute loggedIn={!loggedIn} />}>
+          <Route
+            path="/signup"
+            element={
+              <Register
+                handleRegister={handleRegister}
+                handleLogin={handleLogin}
+              />
+            }
+          />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
           <Route
@@ -250,11 +273,9 @@ function App() {
             path="/saved-movies"
             element={
               <SavedMovies
-                onFilterMovies={handeleFilterMovies}
-                getSavedMovies={handleGetMovies}
                 onDelete={handleDeleteSavedMovie}
-                movieCards={isBtnPushedSaved ? savedFiltredMovies : savedMovies}
-                isBtnPushed={isBtnPushedSaved}
+                movieCards={savedFiltredMovies}
+                handeleSavedFilterMovies={handeleSavedFilterMovies}
               />
             }
           />
@@ -263,13 +284,13 @@ function App() {
             path="/movies"
             element={
               <Movies
-                onFilterMovies={handeleFilterMovies}
                 movieCards={filtredMovies}
                 onMovieLike={handleMovieSave}
                 onDelete={handleDeleteSavedMovie}
                 isLoading={isLoading}
                 error={error}
-                isBtnPushed={isBtnPushed}
+                savedMovies={savedMovies}
+                onFilterMovies={handleFilterMovies}
               />
             }
           />
@@ -277,7 +298,12 @@ function App() {
             exact
             path="/profile"
             element={
-              <Profile onEdit={handleEditProfile} onSubmit={handleSignout} />
+              <Profile
+                onEdit={handleEditProfile}
+                onSubmit={handleSignout}
+                isOpen={isPopupSuccess}
+                onClose={closePopup}
+              />
             }
           />
         </Route>

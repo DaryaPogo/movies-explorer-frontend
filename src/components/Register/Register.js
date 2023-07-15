@@ -7,11 +7,13 @@ import {
 
 const Register = (props) => {
 
-const {values, handleChange, errors, isValid, resetForm} = useFormWithValidation();
+const {values, handleChange, errors, isValid} = useFormWithValidation();
 
   const onSubmit = (event) => {
     event.preventDefault();
     props.handleRegister(values);
+    const data = {email: values.email, password: values.password};
+    props.handleLogin(data);
   };
 
   return (

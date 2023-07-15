@@ -3,18 +3,26 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 const Movies = (props) => {
-  const { onFilterMovies, movieCards, onMovieLike, isSaved, onDelete, isLoading, error, isBtnPushed } = props;
+  const {
+    onFilterMovies,
+    movieCards,
+    onMovieLike,
+    savedMovies,
+    onDelete,
+    isLoading,
+    error,
+  } = props;
+
   return (
     <>
-      <SearchForm onFilterMovies={onFilterMovies}/>
+      <SearchForm onFilterMovies={onFilterMovies} />
       <MoviesCardList
         movieCards={movieCards}
         onMovieLike={onMovieLike}
-        isSaved={isSaved}
+        savedMovies={savedMovies}
         onDelete={onDelete}
         isLoading={isLoading}
         error={error}
-        isBtnPushed={isBtnPushed}
       />
     </>
   );

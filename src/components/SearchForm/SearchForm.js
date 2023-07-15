@@ -1,16 +1,28 @@
 import "./SearchForm.css";
 import Preloader from "../Preloader/Preloader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SearchForm = (props) => {
   const { onFilterMovies, isLoading } = props;
   const [search, setSearch] = useState("");
   const [isShort, setIsShort] = useState(false);
+  const currentPath = window.location.pathname;
 
   const onSubmit = (event) => {
     event.preventDefault();
     onFilterMovies(search, isShort);
+    if (currentPath === "/movies") {
+      localStorage.setItem("search", search);
+      localStorage.setItem("isShort", isShort);
+    }
   };
+
+  useEffect(() => {
+    if (currentPath === "/movies") {
+      setSearch(localStorage.getItem("search"));
+      setIsShort(JSON.parse(localStorage.getItem("isShort")));
+    }
+  }, []);
 
   function handleShortFilms() {
     if (!isShort) {
@@ -27,6 +39,7 @@ const SearchForm = (props) => {
           placeholder="Фильм"
           className="search__adress"
           name="search"
+          value={search || ''}
           onChange={(e) => setSearch(e.target.value)}
           required
         ></input>
@@ -39,7 +52,7 @@ const SearchForm = (props) => {
               className="search__radio"
               type="checkbox"
               onChange={handleShortFilms}
-              checked={isShort ? true : false}
+              checked={isShort? true : false}
             ></input>
             <span className="search__text">Короткометражки</span>
           </label>

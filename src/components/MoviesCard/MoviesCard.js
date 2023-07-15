@@ -2,34 +2,29 @@ import "./MoviesCard.css";
 import { movieAdress } from "../../utils/utils";
 import { useMemo, useState } from "react";
 
-const MoviesCard = ({ movieCard, onMovieLike, onDelete }) => {
-  const [isSaved, setIsSaved] = useState(false);
+const MoviesCard = ({ movieCard, onMovieLike, onDelete, isSaved }) => {
   const [adress, setAdress] = useState("");
 
   const currentPath = window.location.pathname;
 
   useMemo(() => {
     if (currentPath === "/saved-movies") {
-      setIsSaved(true);
       setAdress(movieCard.image);
     } else {
-      setIsSaved(false);
       setAdress(movieAdress + movieCard.image.url);
     }
-  }, [currentPath]);
+  }, [currentPath, movieCard]);
 
   function handleLikeClick(event) {
     event.target.classList.remove("movie__button-save");
-    event.target.classList.add("movie__button-ok");
-    setIsSaved(true);
     onMovieLike(movieCard);
+    event.target.classList.add("movie__button-ok");
   }
 
   function handleDeleteSavedMovie(event) {
     event.target.classList.remove("movie__button-ok");
-    event.target.classList.add("movie__button-save");
-    setIsSaved(false);
     onDelete(movieCard);
+    event.target.classList.add("movie__button-save");
   }
 
   const getTimeFromMins = (min) => {
@@ -38,17 +33,24 @@ const MoviesCard = ({ movieCard, onMovieLike, onDelete }) => {
     return hours + "ч. " + minutes + "м.";
   };
 
+  let classNameBtn;
+  if (currentPath === "/saved-movies") {
+    classNameBtn = "movie__button-delete";
+  } else {
+    if (isSaved) {
+      classNameBtn = "movie__button-ok";
+    } else {
+      classNameBtn = "movie__button-save";
+    }
+  }
+
   return (
     <li className="movie__list">
-      <a href={movieCard.trailerLink}>
+      <a href={movieCard.trailerLink} target="_blank" rel="noreferrer">
         <img src={adress} alt="кино" className="movie__img" />
       </a>
       <button
-        className={`movie__button ${
-          currentPath === "/saved-movies"
-            ? "movie__button-delete"
-            : "movie__button-save"
-        }`}
+        className={`movie__button ${classNameBtn}`}
         type="button"
         onClick={isSaved ? handleDeleteSavedMovie : handleLikeClick}
       ></button>

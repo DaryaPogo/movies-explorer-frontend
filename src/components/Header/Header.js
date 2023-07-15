@@ -3,7 +3,6 @@ import logo from "../../images/logo.svg";
 import "../HeaderMain/HeaderMain.css";
 import React from "react";
 import "./Header.css";
-import { useEffect, useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
 const Header = ({ onEditNavigation, isOpen, onClose }) => {

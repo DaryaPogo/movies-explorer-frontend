@@ -1,15 +1,16 @@
 import "./Profile.css";
-import { useEffect, useContext } from "react";
+import PopupSuccess from "../PopupSuccess/PopupSuccess";
+import { useEffect, useContext, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../validation/validation";
 
 const Profile = (props) => {
-  const { onEdit, onSubmit } = props;
+  const { onEdit, onSubmit, isOpen, onClose } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, setValues } =
     useFormWithValidation();
-
+  const [isDisable, setIsDisabled] = useState(isValid);
   useEffect(() => {
     setValues({
       name: currentUser.name,
@@ -23,6 +24,18 @@ const Profile = (props) => {
     onEdit(data);
   };
 
+  const handleDisabled = (e) => {
+    handleChange(e);
+    if (
+      e.target.value !== currentUser.name &&
+      e.target.value !== currentUser.email
+    ) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  };
+
   return (
     <>
       <section className="profile">
@@ -33,7 +46,7 @@ const Profile = (props) => {
             <input
               type="text"
               className="profile__input"
-              onChange={handleChange}
+              onChange={handleDisabled}
               name="name"
               value={values["name"] || ""}
             />
@@ -45,7 +58,7 @@ const Profile = (props) => {
             E-mail
             <input
               className="profile__input"
-              onChange={handleChange}
+              onChange={handleDisabled}
               name="email"
               value={values["email"] || ""}
               pattern="^\S+@\S+\.\S+$"
@@ -55,7 +68,11 @@ const Profile = (props) => {
             <span className="register__error">{errors["email"]}</span>
           )}
 
-          <button disabled={!isValid} className="profile__button" type="submit">
+          <button
+            disabled={!isDisable}
+            className="profile__button"
+            type="submit"
+          >
             Редактировать
           </button>
         </form>
@@ -68,6 +85,7 @@ const Profile = (props) => {
           Выйти из аккаунта
         </button>
       </section>
+      {isOpen && <PopupSuccess onClose={onClose} isOpen={isOpen} />}
     </>
   );
 };
