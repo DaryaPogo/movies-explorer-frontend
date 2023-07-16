@@ -107,7 +107,7 @@ function App() {
 
   function handleRegister(data) {
     return register(data)
-      .then((res) => {
+      .then(() => {
         navigate("/movies");
       })
       .catch((err) => {
@@ -192,7 +192,11 @@ function App() {
 
   function filterMovie(movie, search, isShort) {
     if (isShort) {
-      return movie.duration < 40;
+      return (
+        (movie.nameRU.toLowerCase().includes(search) ||
+          movie.nameEN.toLowerCase().includes(search)) &&
+        movie.duration < 40
+      );
     } else {
       return (
         movie.nameRU.toLowerCase().includes(search) ||
