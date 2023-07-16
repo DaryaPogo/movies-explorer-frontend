@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Preloader from "../Preloader/Preloader";
 
 export const MoviesCardList = (props) => {
-  const { movieCards, onMovieLike, onDelete, isLoading, error, savedMovies } =
+  const { movieCards, onMovieLike, onDelete, isLoading, error, savedMovies, isSearch } =
     props;
 
   const [page, setPage] = useState(1);
@@ -53,7 +53,7 @@ export const MoviesCardList = (props) => {
         </span>
       )}
       {isLoading && <Preloader />}
-      {moviesToRender.length === 0 && (
+      {moviesToRender.length === 0 && isSearch && (
         <span className="movie__non">Ничего не найдено</span>
       )}
       <ul className="movie__table">

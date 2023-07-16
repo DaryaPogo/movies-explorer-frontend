@@ -36,6 +36,8 @@ function App() {
   const [savedFiltredMovies, setSavedFitredMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [isSavedSearch, setIsSavedSearch] = useState(false);
 
   const navigate = useNavigate();
   const currentPath = window.location.pathname;
@@ -94,6 +96,14 @@ function App() {
     setFiltredMovies(JSON.parse(localStorage.getItem("movies")) || []);
   }, []);
 
+  useEffect(() => {
+    if (localStorage["search"]) {
+      setIsSearch(true);
+    } else {
+      setIsSearch(false);
+    }
+  }, [filtredMovies]);
+
   useEffect(() => setSavedFitredMovies(savedMovies), [savedMovies]);
 
   function handleEditNavigation() {
@@ -108,7 +118,7 @@ function App() {
   function handleRegister(data) {
     return register(data)
       .then(() => {
-        const value = {email: data.email, password: data.password};
+        const value = { email: data.email, password: data.password };
         handleLogin(value);
         navigate("/movies");
       })
@@ -196,7 +206,8 @@ function App() {
     if (isShort) {
       return (
         (movie.nameRU.toLowerCase().includes(search) ||
-        movie.nameEN.toLowerCase().includes(search)) &&  movie.duration < 40 
+          movie.nameEN.toLowerCase().includes(search)) &&
+        movie.duration < 40
       );
     } else {
       return (
@@ -220,6 +231,7 @@ function App() {
             movies.filter((item) => filterMovie(item, search, isShort))
           )
         );
+        setIsSearch(true);
       })
       .catch((err) => {
         console.log(err);
@@ -234,6 +246,7 @@ function App() {
     setSavedFitredMovies(
       savedMovies.filter((item) => filterMovie(item, search, isShort))
     );
+    setIsSavedSearch(true);
   }
 
   return (
@@ -285,6 +298,7 @@ function App() {
                 onDelete={handleDeleteSavedMovie}
                 movieCards={savedFiltredMovies}
                 handeleSavedFilterMovies={handeleSavedFilterMovies}
+                isSearch={isSavedSearch}
               />
             }
           />
@@ -300,6 +314,7 @@ function App() {
                 error={error}
                 savedMovies={savedMovies}
                 onFilterMovies={handleFilterMovies}
+                isSearch={isSearch}
               />
             }
           />

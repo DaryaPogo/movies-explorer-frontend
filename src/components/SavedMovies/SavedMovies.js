@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import React from "react";
 
 const SavedMovies = (props) => {
-  const { onDelete, movieCards, handeleSavedFilterMovies, } = props;
+  const { onDelete, movieCards, handeleSavedFilterMovies, isSearch } = props;
 
   return (
     <main className="main">
@@ -11,6 +11,7 @@ const SavedMovies = (props) => {
       <MoviesCardList
         movieCards={movieCards}
         onDelete={onDelete}
+        isSearch={isSearch}
       />
     </main>
   );

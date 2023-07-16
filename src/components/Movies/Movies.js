@@ -11,6 +11,7 @@ const Movies = (props) => {
     onDelete,
     isLoading,
     error,
+    isSearch,
   } = props;
 
   return (
@@ -23,6 +24,7 @@ const Movies = (props) => {
         onDelete={onDelete}
         isLoading={isLoading}
         error={error}
+        isSearch={isSearch}
       />
     </>
   );
