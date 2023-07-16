@@ -25,10 +25,10 @@ const SearchForm = (props) => {
   }, []);
 
   function handleShortFilms() {
-    if (!isShort) {
-      setIsShort(true);
-    } else {
+    if (isShort) {
       setIsShort(false);
+    } else {
+      setIsShort(true);
     }
   }
 
@@ -52,7 +52,7 @@ const SearchForm = (props) => {
               className="search__radio"
               type="checkbox"
               onChange={handleShortFilms}
-              checked={isShort ? true : false}
+              checked={isShort ? false : true}
             ></input>
             <span className="search__text">Короткометражки</span>
           </label>
