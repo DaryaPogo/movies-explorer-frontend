@@ -108,6 +108,8 @@ function App() {
   function handleRegister(data) {
     return register(data)
       .then(() => {
+        const value = {email: data.email, password: data.password};
+        handleLogin(value);
         navigate("/movies");
       })
       .catch((err) => {
@@ -194,8 +196,7 @@ function App() {
     if (isShort) {
       return (
         (movie.nameRU.toLowerCase().includes(search) ||
-          movie.nameEN.toLowerCase().includes(search)) &&
-        movie.duration < 40
+        movie.nameEN.toLowerCase().includes(search)) &&  movie.duration < 40 
       );
     } else {
       return (
