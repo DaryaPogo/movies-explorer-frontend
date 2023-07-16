@@ -134,6 +134,7 @@ function App() {
   function handleSignout(jwt) {
     return logout()
       .then(() => {
+        setFiltredMovies([]);
         localStorage.removeItem("userId");
         localStorage.removeItem("search");
         localStorage.removeItem("isShort");
@@ -187,7 +188,6 @@ function App() {
         handleGetMovies();
       })
       .catch((err) => console.log(err));
-      
   }
 
   function filterMovie(movie, search, isShort) {
@@ -209,7 +209,12 @@ function App() {
         setFiltredMovies(
           movies.filter((item) => filterMovie(item, search, isShort))
         );
-        localStorage.setItem('movies', JSON.stringify(movies.filter((item) => filterMovie(item, search, isShort))))
+        localStorage.setItem(
+          "movies",
+          JSON.stringify(
+            movies.filter((item) => filterMovie(item, search, isShort))
+          )
+        );
       })
       .catch((err) => {
         console.log(err);

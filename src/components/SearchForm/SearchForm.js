@@ -39,7 +39,7 @@ const SearchForm = (props) => {
           placeholder="Фильм"
           className="search__adress"
           name="search"
-          value={search || ''}
+          value={search || ""}
           onChange={(e) => setSearch(e.target.value)}
           required
         ></input>
@@ -52,7 +52,7 @@ const SearchForm = (props) => {
               className="search__radio"
               type="checkbox"
               onChange={handleShortFilms}
-              checked={isShort? true : false}
+              checked={isShort ? true : false}
             ></input>
             <span className="search__text">Короткометражки</span>
           </label>

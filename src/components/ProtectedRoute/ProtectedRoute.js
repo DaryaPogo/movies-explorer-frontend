@@ -6,5 +6,5 @@ export const ProtectedRoute = (props) => {
   if (!loggedIn) {
     return <Navigate to="/" replace />;
   }
-  return children? children : <Outlet />;
+  return children ? children : <Outlet />;
 };
