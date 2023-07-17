@@ -19,7 +19,7 @@ import { register, checkToken, login, logout } from "../../utils/auth";
 
 function App() {
   const [isEditNavigation, setEditNavigation] = useState(false);
-  const [isPopupSuccess, setPopupSuccess] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(() => {
     if (localStorage.getItem("userId")) {
       return true;
@@ -112,10 +112,11 @@ function App() {
 
   function closePopup() {
     setEditNavigation(false);
-    setPopupSuccess(false);
+    setPopupOpen(false);
   }
 
   function handleRegister(data) {
+    setIsLoading(true);
     return register(data)
       .then(() => {
         const value = { email: data.email, password: data.password };
@@ -124,10 +125,13 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+        setPopupOpen(true);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleLogin(data) {
+    setIsLoading(true);
     return login(data)
       .then((res) => {
         if (res._id) {
@@ -140,7 +144,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+        setPopupOpen(true);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleSignout(jwt) {
@@ -161,14 +167,18 @@ function App() {
   }
 
   function handleEditProfile({ name, email }) {
+    setIsLoading(true);
     mainApi
       .editProfile({ name, email })
       .then(() => {
         setCurrentUser({ ...currentUser, name, email });
-        setPopupSuccess(true);
+        setPopupOpen(true);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -282,11 +292,23 @@ function App() {
             element={
               <Register
                 handleRegister={handleRegister}
-                handleLogin={handleLogin}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                isLoading={isLoading}
               />
             }
           />
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                handleLogin={handleLogin}
+                isOpen={isPopupOpen}
+                onClose={closePopup}
+                isLoading={isLoading}
+              />
+            }
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
@@ -325,8 +347,9 @@ function App() {
               <Profile
                 onEdit={handleEditProfile}
                 onSubmit={handleSignout}
-                isOpen={isPopupSuccess}
+                isOpen={isPopupOpen}
                 onClose={closePopup}
+                isLoading={isLoading}
               />
             }
           />

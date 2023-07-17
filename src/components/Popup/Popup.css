@@ -53,3 +53,7 @@
 .popup__text {
   text-align: center;
 }
+
+.popup-error {
+  background-color: rgb(238, 172, 172);
+}

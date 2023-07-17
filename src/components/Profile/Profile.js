@@ -1,11 +1,11 @@
 import "./Profile.css";
-import PopupSuccess from "../PopupSuccess/PopupSuccess";
+import Popup from "../Popup/Popup";
 import { useEffect, useContext, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../validation/validation";
 
 const Profile = (props) => {
-  const { onEdit, onSubmit, isOpen, onClose } = props;
+  const { onEdit, onSubmit, isOpen, onClose, isLoading } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, errors, isValid, setValues } =
@@ -69,7 +69,7 @@ const Profile = (props) => {
           )}
 
           <button
-            disabled={!isDisable}
+            disabled={!isDisable || isLoading}
             className="profile__button"
             type="submit"
           >
@@ -85,7 +85,13 @@ const Profile = (props) => {
           Выйти из аккаунта
         </button>
       </section>
-      {isOpen && <PopupSuccess onClose={onClose} isOpen={isOpen} />}
+      {isOpen && (
+        <Popup
+          onClose={onClose}
+          isOpen={isOpen}
+          title="Вы успешно обновили данные!"
+        />
+      )}
     </>
   );
 };
