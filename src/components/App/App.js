@@ -104,7 +104,11 @@ function App() {
     }
   }, [filtredMovies]);
 
-  useEffect(() => setSavedFitredMovies(savedMovies), [savedMovies]);
+  useEffect(() => {
+    if (currentPath === "/saved-movies") {
+      setSavedFitredMovies(savedMovies);
+    }
+  }, [savedMovies, currentPath]);
 
   function handleEditNavigation() {
     setEditNavigation(!isEditNavigation);
