@@ -5,6 +5,18 @@
   margin: 70px 0 40px;
 }
 
+.profile__form {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__form{
+    width: 410px;
+  }
+}
+
 .profile__label {
   font-weight: 500;
   font-size: 11px;
@@ -13,13 +25,7 @@
   justify-content: space-between;
   padding-bottom: 16px;
   border-bottom: #e8e8e8 solid 1px;
-  width: 260px;
-}
 
-@media screen and (min-width: 768px) {
-  .profile__label {
-    width: 410px;
-  }
 }
 
 .profile__wellcome {
@@ -41,7 +47,7 @@
   }
 }
 
-.profile__label:last-child {
+.profile__label:last-of-type {
   border: none;
   margin-top: 17px;
   padding: 0;
@@ -60,6 +66,8 @@
   font-size: 12px;
   line-height: 15px;
   transition: 0.3s ease-in-out;
+  background-color: #fff;
+  border: none;
 }
 
 .profile__signout:hover {
