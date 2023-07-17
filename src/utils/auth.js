@@ -1,5 +1,5 @@
-const BaseURL = "http://localhost:3000";
-//const BaseURL = 'https://api.diplom.dashapogo.nomoredomains.monster';
+//const BaseURL = "http://localhost:3000";
+const BaseURL = "https://api.diplom.dashapogo.nomoredomains.monster";
 
 function getResponse(res) {
   if (res.ok) {
